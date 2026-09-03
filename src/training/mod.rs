@@ -445,7 +445,8 @@ unsafe fn stale_handle(ctx: &mut InlineCtx) {
 #[skyline::hook(offset = *OFFSET_STALE_MENU, inline)]
 unsafe fn stale_menu_handle(ctx: &mut InlineCtx) {
     // Set the text pointer to where "mel_training_on" is located
-    let on_text_ptr = (getRegionAddress(Region::Text) as u64) + 0x42b315e;
+    // 13.0.4: 0x42b315e. 13.0.5 moved this rodata string by +0x1000 (verified in the 13.0.5 binary).
+    let on_text_ptr = (getRegionAddress(Region::Text) as u64) + 0x42b415e;
     ctx.registers[1].set_x(on_text_ptr);
 }
 
